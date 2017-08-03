@@ -5,6 +5,8 @@ import styled from 'styled-components';
 const StyledAppHeader = styled.div`
   background-color: #fff;
   box-shadow: 0 3px 6px rgba(74, 74, 74, 0.2);
+  position: relative;
+  z-index: 3;
   display: flex;
   align-items: center;
   div {
@@ -19,7 +21,6 @@ const activeClassName = 'nav-item-active';
 const StyledHomeLink = styled(NavLink).attrs({ activeClassName })`
   text-decoration: none;
   margin: 0 15px;
-  font-size: 24px;
   color: #4a4a4a;
   transition: all 0.2s;
   :hover {
@@ -27,6 +28,9 @@ const StyledHomeLink = styled(NavLink).attrs({ activeClassName })`
   }
   &.${activeClassName} {
     color: #02AFDF;
+  }
+  h1 {
+    font-size: 24px;
   }
 `;
 const StyledSearchLink = styled(NavLink).attrs({ activeClassName })`
@@ -52,7 +56,7 @@ const AppHeader = () =>
   <StyledAppHeader>
     <div>
       <StyledHomeLink exact to="/">
-        MyReads
+        <h1>MyReads</h1>
       </StyledHomeLink>
     </div>
 
