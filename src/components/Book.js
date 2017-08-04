@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const StyledBook = styled.li`
@@ -44,6 +45,12 @@ const StyledMoving = styled.div`
 `;
 
 class Book extends React.Component {
+  static propTypes = {
+    book: PropTypes.object.isRequired,
+    movingBook: PropTypes.string.isRequired,
+    updateBook: PropTypes.func.isRequired
+  };
+
   handleChange = event => {
     const bookInfo = {
       book: this.props.book,

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import BookShelf from './BookShelf';
 
@@ -52,6 +53,13 @@ const Home = props => {
   }
 
   return component;
+};
+
+Home.propTypes = {
+  books: PropTypes.array.isRequired,
+  loading: PropTypes.bool.isRequired,
+  movingBook: PropTypes.string.isRequired,
+  updateBook: PropTypes.func.isRequired
 };
 
 export default Home;

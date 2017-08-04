@@ -63,10 +63,9 @@ class App extends React.Component {
   };
 
   renderSearch = () => {
-    const { loading, books, movingBook } = this.state;
+    const { books, movingBook } = this.state;
     return (
       <Search
-        loading={loading}
         books={books}
         movingBook={movingBook}
         updateBook={this.updateBook}

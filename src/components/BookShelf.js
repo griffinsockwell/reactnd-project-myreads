@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Book from './Book';
 
@@ -35,12 +36,9 @@ const StyledNoBooks = styled.div`
 const BookShelf = props => {
   const { title, filter, books, movingBook, updateBook } = props;
 
-  let booksFiltered;
-  if (filter) {
-    booksFiltered = books.filter(book => book.shelf === filter);
-  } else {
-    booksFiltered = books;
-  }
+  const booksFiltered = filter
+    ? books.filter(book => book.shelf === filter)
+    : books;
 
   return (
     <StyledBookShelf>
@@ -65,6 +63,14 @@ const BookShelf = props => {
           </StyledNoBooks>}
     </StyledBookShelf>
   );
+};
+
+BookShelf.propTypes = {
+  books: PropTypes.array.isRequired,
+  filter: PropTypes.string,
+  movingBook: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  updateBook: PropTypes.func.isRequired
 };
 
 export default BookShelf;

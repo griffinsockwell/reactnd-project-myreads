@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import * as BooksAPI from '../api/BooksAPI';
 import SearchBar from './SearchBar';
@@ -10,6 +11,12 @@ const StyledSearch = styled.div`
 `;
 
 class Search extends React.Component {
+  static propTypes = {
+    books: PropTypes.array.isRequired,
+    movingBook: PropTypes.string.isRequired,
+    updateBook: PropTypes.func.isRequired
+  };
+
   state = {
     searching: false,
     books: []
@@ -52,13 +59,12 @@ class Search extends React.Component {
 
     return (
       <StyledSearch>
-        <SearchBar searchForBooks={this.searchForBooks} />
+        <SearchBar searching={searching} searchForBooks={this.searchForBooks} />
 
         <BookShelf
           key="search"
           title="Search Results"
           books={allBooks}
-          searching={searching}
           movingBook={movingBook}
           updateBook={updateBook}
         />

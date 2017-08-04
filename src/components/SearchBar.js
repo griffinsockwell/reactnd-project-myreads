@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 import styled from 'styled-components';
@@ -26,6 +27,11 @@ const StyledSearchTerm = styled.div`
 `;
 
 class SearchBar extends React.Component {
+  static propTypes = {
+    searching: PropTypes.bool.isRequired,
+    searchForBooks: PropTypes.func.isRequired
+  };
+
   state = {
     term: ''
   };
