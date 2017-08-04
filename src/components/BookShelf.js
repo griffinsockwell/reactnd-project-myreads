@@ -11,17 +11,29 @@ const StyledBookShelf = styled.div`
     color: #9b9b9b;
   }
   ul {
-    padding: 0 10px;
     min-height: 200px;
+    padding: 0 10px;
     list-style-type: none;
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
   }
 `;
+const StyledNoBooks = styled.div`
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #4a4a4a;
+  i {
+    font-size: 50px;
+    margin-top: 4px;
+  }
+`;
 
 const BookShelf = props => {
-  const { title, filter, books } = props;
+  const { title, filter, books, movingBook, updateBook } = props;
   const booksFiltered = books.filter(book => book.shelf === filter);
 
   return (
@@ -29,9 +41,22 @@ const BookShelf = props => {
       <h2>
         {title}
       </h2>
-      <ul>
-        {booksFiltered.map(book => <Book key={book.id} book={book} />)}
-      </ul>
+
+      {booksFiltered.length
+        ? <ul>
+            {booksFiltered.map(book =>
+              <Book
+                key={book.id}
+                book={book}
+                movingBook={movingBook}
+                updateBook={updateBook}
+              />
+            )}
+          </ul>
+        : <StyledNoBooks>
+            <small>No books in this shelf</small>
+            <i className="material-icons">library_books</i>
+          </StyledNoBooks>}
     </StyledBookShelf>
   );
 };

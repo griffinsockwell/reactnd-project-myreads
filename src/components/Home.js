@@ -14,7 +14,22 @@ const StyledLoading = styled.div`
 `;
 
 const Home = props => {
-  const { loading, books } = props;
+  const { loading, books, movingBook, updateBook } = props;
+
+  const shelves = [
+    {
+      title: 'Currently Reading',
+      value: 'currentlyReading'
+    },
+    {
+      title: 'Want to Read',
+      value: 'wantToRead'
+    },
+    {
+      title: 'Read',
+      value: 'read'
+    }
+  ];
 
   let component;
   if (loading) {
@@ -22,13 +37,16 @@ const Home = props => {
   } else {
     component = (
       <StyledHome>
-        <BookShelf
-          title="Currently Reading"
-          filter="currentlyReading"
-          books={books}
-        />
-        <BookShelf title="Want to Read" filter="wantToRead" books={books} />
-        <BookShelf title="Read" filter="read" books={books} />
+        {shelves.map(shelf =>
+          <BookShelf
+            key={shelf.value}
+            title={shelf.title}
+            filter={shelf.value}
+            books={books}
+            movingBook={movingBook}
+            updateBook={updateBook}
+          />
+        )}
       </StyledHome>
     );
   }

@@ -16,7 +16,8 @@ const StyledApp = styled.div`
 class App extends React.Component {
   state = {
     loading: true,
-    books: []
+    books: [],
+    movingBook: ''
   };
 
   async componentDidMount() {
@@ -31,14 +32,46 @@ class App extends React.Component {
     }
   }
 
+  updateBook = async bookInfo => {
+    try {
+      this.setState({ movingBook: bookInfo.book.id });
+      const { book, shelf } = bookInfo;
+      await BooksAPI.update(book, shelf);
+      this.setState(state => {
+        const books = state.books.map(
+          bk => (bk.id === bookInfo.book.id ? { ...book, shelf } : bk)
+        );
+        return { books };
+      });
+    } catch (e) {
+      console.log(e);
+    } finally {
+      this.setState({ movingBook: '' });
+    }
+  };
+
   renderHome = () => {
-    const { loading, books } = this.state;
-    return <Home loading={loading} books={books} />;
+    const { loading, books, movingBook } = this.state;
+    return (
+      <Home
+        loading={loading}
+        books={books}
+        movingBook={movingBook}
+        updateBook={this.updateBook}
+      />
+    );
   };
 
   renderSearch = () => {
-    const { loading, books } = this.state;
-    return <Search loading={loading} books={books} />;
+    const { loading, books, movingBook } = this.state;
+    return (
+      <Search
+        loading={loading}
+        books={books}
+        movingBook={movingBook}
+        updateBook={this.updateBook}
+      />
+    );
   };
 
   render() {
