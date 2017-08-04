@@ -34,7 +34,13 @@ const StyledNoBooks = styled.div`
 
 const BookShelf = props => {
   const { title, filter, books, movingBook, updateBook } = props;
-  const booksFiltered = books.filter(book => book.shelf === filter);
+
+  let booksFiltered;
+  if (filter) {
+    booksFiltered = books.filter(book => book.shelf === filter);
+  } else {
+    booksFiltered = books;
+  }
 
   return (
     <StyledBookShelf>

@@ -34,13 +34,13 @@ class App extends React.Component {
 
   updateBook = async bookInfo => {
     try {
-      this.setState({ movingBook: bookInfo.book.id });
       const { book, shelf } = bookInfo;
+      this.setState({ movingBook: book.id });
       await BooksAPI.update(book, shelf);
+      const newBook = { ...book, shelf };
       this.setState(state => {
-        const books = state.books.map(
-          bk => (bk.id === bookInfo.book.id ? { ...book, shelf } : bk)
-        );
+        const filteredBooks = state.books.filter(bk => bk.id !== newBook.id);
+        const books = [...filteredBooks, newBook];
         return { books };
       });
     } catch (e) {

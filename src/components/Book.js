@@ -53,13 +53,21 @@ class Book extends React.Component {
   };
 
   render() {
-    const { book, movingBook } = this.props;
-    const isMoving = book.id === movingBook;
+    const isMoving = this.props.book.id === this.props.movingBook;
+    const book = {
+      title: this.props.book.title,
+      thumbnail: this.props.book.imageLinks
+        ? this.props.book.imageLinks.smallThumbnail
+        : '',
+      authors: this.props.book.authors || [],
+      shelf: this.props.book.shelf
+    };
 
     return (
       <StyledBook>
         <StyledBookInfo>
-          <img src={book.imageLinks.smallThumbnail} alt={book.title} />
+          {book.thumbnail && <img src={book.thumbnail} alt={book.title} />}
+
           <strong>
             {book.title}
           </strong>
